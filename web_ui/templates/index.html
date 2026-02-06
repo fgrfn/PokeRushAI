@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PokéRushAI Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  </head>
+  <body>
+    <header>
+      <h1>PokéRushAI Speedrun Dashboard</h1>
+      <p>Live emulator state, routing decisions, and leaderboard tracking.</p>
+    </header>
+
+    <section class="controls">
+      <label for="edition-select">Edition</label>
+      <select id="edition-select">
+        {% for key, edition in editions.items() %}
+        <option value="{{ key }}">{{ edition.name }}</option>
+        {% endfor %}
+      </select>
+    </section>
+
+    <section class="layout">
+      <div class="map-panel">
+        <h2>World Map</h2>
+        <div class="map-wrapper">
+          <img id="map-image" alt="Pokemon map" />
+          <div id="player-marker"></div>
+        </div>
+        <div class="map-meta" id="map-meta"></div>
+      </div>
+
+      <div class="state-panel">
+        <h2>Current Run State</h2>
+        <ul id="state-list"></ul>
+
+        <h2>Scoreboard</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Run</th>
+              <th>Total Time (s)</th>
+              <th>Splits</th>
+            </tr>
+          </thead>
+          <tbody id="scoreboard-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+  </body>
+</html>
