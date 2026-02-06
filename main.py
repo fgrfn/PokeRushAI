@@ -5,18 +5,16 @@ from pathlib import Path
 
 from bot.rl_bot import BotSettings, PokeRushBot
 from core.config import build_config
-from emulator.pyboy_emulator import EmulatorSettings, PyBoyEmulator
+from emulator.pyboy_emulator import PyBoyEmulator
 from run_logging.run_logger import RunLogger
+from web_ui.app import app
 
 
-def run_bot(edition: str, max_steps: int, allow_missing_rom: bool) -> None:
+def run_bot(edition: str, max_steps: int) -> None:
     base_dir = Path(__file__).resolve().parent
     config = build_config(base_dir)
     edition_config = config.editions[edition]
-    emulator = PyBoyEmulator(
-        edition_config.rom_path,
-        settings=EmulatorSettings(allow_missing_rom=allow_missing_rom),
-    )
+    emulator = PyBoyEmulator(edition_config.rom_path)
     logger = RunLogger(config.log_dir, edition)
     bot = PokeRushBot(
         emulator=emulator,
@@ -28,8 +26,6 @@ def run_bot(edition: str, max_steps: int, allow_missing_rom: bool) -> None:
 
 
 def run_web(host: str, port: int) -> None:
-    from web_ui.app import app
-
     app.run(debug=True, host=host, port=port)
 
 
@@ -40,13 +36,6 @@ def parse_args() -> argparse.Namespace:
     bot_parser = subparsers.add_parser("bot", help="Run the RL bot")
     bot_parser.add_argument("--edition", default="red", choices=["red", "blue", "yellow"])
     bot_parser.add_argument("--max-steps", type=int, default=100)
-    bot_parser.add_argument(
-        "--require-rom",
-        action="store_false",
-        dest="allow_missing_rom",
-        help="Fail if the ROM is missing",
-    )
-    bot_parser.set_defaults(allow_missing_rom=True)
 
     web_parser = subparsers.add_parser("web", help="Run the web UI")
     web_parser.add_argument("--host", default="0.0.0.0")
@@ -58,7 +47,7 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
     if args.command == "bot":
-        run_bot(args.edition, args.max_steps, args.allow_missing_rom)
+        run_bot(args.edition, args.max_steps)
     if args.command == "web":
         run_web(args.host, args.port)
 

@@ -32,33 +32,22 @@ class PokeRushBot:
         self.settings = settings
 
     def run(self, milestones: Iterable[str]) -> None:
+        self.emulator.load()
         run_id = self.logger.start_run(milestones)
-        self.logger.log_event(run_id, "info", "Run started")
-        try:
-            self.emulator.load()
-            for step in range(self.settings.max_steps):
-                state = self.emulator.get_state()
-                action = select_action(state, self.settings.actions)
-                decision = RunDecision(
-                    step=step,
-                    action=action,
-                    reason="exploration",
-                    timestamp=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-                )
-                self.emulator.step(action)
-                self.logger.log_decision(run_id, decision, state)
-                self._write_state(state)
-                time.sleep(0.01)
-        except Exception as exc:  # pylint: disable=broad-except
-            self.logger.log_event(
-                run_id,
-                "error",
-                "Emulator stopped unexpectedly",
-                {"error": str(exc)},
+        for step in range(self.settings.max_steps):
+            state = self.emulator.get_state()
+            action = select_action(state, self.settings.actions)
+            decision = RunDecision(
+                step=step,
+                action=action,
+                reason="exploration",
+                timestamp=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
             )
-        finally:
-            self.logger.log_event(run_id, "info", "Run finished")
-            self.logger.finish_run(run_id)
+            self.emulator.step(action)
+            self.logger.log_decision(run_id, decision, state)
+            self._write_state(state)
+            time.sleep(0.01)
+        self.logger.finish_run(run_id)
 
     def _write_state(self, state: GameState) -> None:
         payload = {

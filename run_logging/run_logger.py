@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 import time
 from pathlib import Path
-from typing import Dict, Iterable, List, Optional
+from typing import Dict, Iterable, List
 
 from core.models import GameState, RunDecision, RunSummary, SplitTime
 
@@ -29,7 +29,6 @@ class RunLogger:
         }
         (run_dir / "metadata.json").write_text(json.dumps(metadata, indent=2))
         (run_dir / "decisions.jsonl").write_text("")
-        (run_dir / "events.jsonl").write_text("")
         return run_id
 
     def log_decision(self, run_id: int, decision: RunDecision, state: GameState) -> None:
@@ -46,24 +45,7 @@ class RunLogger:
                 "play_time_seconds": state.play_time_seconds,
             },
         }
-        self._append_jsonl(run_id, "decisions.jsonl", payload)
-
-    def log_event(
-        self,
-        run_id: int,
-        level: str,
-        message: str,
-        details: Optional[Dict[str, object]] = None,
-    ) -> None:
-        payload = {
-            "timestamp": self._timestamp(),
-            "level": level,
-            "message": message,
-        }
-        if details:
-            payload["details"] = details
-        self._append_jsonl(run_id, "events.jsonl", payload)
-        self._print_event(payload)
+        self._append_jsonl(run_id, payload)
 
     def finish_run(self, run_id: int) -> None:
         run_dir = self._run_dir(run_id)
@@ -124,20 +106,10 @@ class RunLogger:
             return 0.0
         return time.time() - time.mktime(time.strptime(started_at, "%Y-%m-%dT%H:%M:%SZ"))
 
-    def _append_jsonl(self, run_id: int, filename: str, payload: Dict[str, object]) -> None:
-        path = self._run_dir(run_id) / filename
+    def _append_jsonl(self, run_id: int, payload: Dict[str, object]) -> None:
+        path = self._run_dir(run_id) / "decisions.jsonl"
         with path.open("a", encoding="utf-8") as handle:
             handle.write(json.dumps(payload) + "\n")
-
-    def _print_event(self, payload: Dict[str, object]) -> None:
-        timestamp = payload.get("timestamp", "")
-        level = payload.get("level", "info").upper()
-        message = payload.get("message", "")
-        details = payload.get("details")
-        if details:
-            print(f"[{timestamp}] [{level}] {message} | {details}")
-        else:
-            print(f"[{timestamp}] [{level}] {message}")
 
     def _next_run_id(self) -> int:
         if self.counter_path.exists():

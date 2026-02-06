@@ -12,18 +12,10 @@
 python main.py bot --edition red --max-steps 200
 ```
 
-Ohne ROM-Dateien läuft der Bot im Stub-Modus weiter, damit Logs erzeugt werden. Wer sicherstellen möchte, dass die ROM vorhanden ist, nutzt:
-
-```bash
-python main.py bot --edition red --require-rom
-```
-
 Der Bot erzeugt einen neuen Run und schreibt:
 
 - `data/state.json` für die Web-UI
-- `logs/<edition>/run_XXXX/` mit Entscheidungslog, Events und Zusammenfassung
-
-Wenn der Emulator unerwartet stoppt, findest du den Grund in `events.jsonl` im jeweiligen Run-Ordner. Events werden zusätzlich in der Konsole ausgegeben.
+- `logs/<edition>/run_XXXX/` mit Entscheidungslog und Zusammenfassung
 
 ## Web-UI starten
 

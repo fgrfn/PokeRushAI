@@ -11,7 +11,6 @@ from core.models import GameState
 class EmulatorSettings:
     frame_skip: int = 0
     emulation_speed: float = 1.0
-    allow_missing_rom: bool = True
 
 
 class PyBoyEmulator:
@@ -28,10 +27,9 @@ class PyBoyEmulator:
 
     def load(self) -> None:
         if not self.rom_path.exists():
-            if not self.settings.allow_missing_rom:
-                raise FileNotFoundError(
-                    f"ROM not found at {self.rom_path}. Place the ROM before running."
-                )
+            raise FileNotFoundError(
+                f"ROM not found at {self.rom_path}. Place the ROM before running."
+            )
         self._loaded = True
 
     def get_state(self) -> GameState:
