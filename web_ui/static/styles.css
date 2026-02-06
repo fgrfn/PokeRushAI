@@ -1,0 +1,89 @@
+body {
+  font-family: "Segoe UI", sans-serif;
+  margin: 0;
+  background: #f4f5f8;
+  color: #1d1d1f;
+}
+
+header {
+  background: #e4002b;
+  color: white;
+  padding: 24px 40px;
+}
+
+section.controls {
+  padding: 16px 40px;
+  background: white;
+  border-bottom: 1px solid #dcdfe4;
+}
+
+section.layout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 24px;
+  padding: 24px 40px;
+}
+
+.map-panel,
+.state-panel {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.map-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  border: 1px solid #dcdfe4;
+  min-height: 300px;
+  background: #fafafa;
+}
+
+.map-wrapper img {
+  width: 100%;
+  display: block;
+}
+
+#player-marker {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #e4002b;
+  border: 2px solid white;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
+  transform: translate(-50%, -50%);
+}
+
+.state-panel table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+}
+
+.state-panel th,
+.state-panel td {
+  border-bottom: 1px solid #e1e5ea;
+  padding: 8px;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+#state-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#state-list li {
+  padding: 4px 0;
+}
+
+.map-meta {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 8px;
+  word-break: break-word;
+}
