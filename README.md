@@ -32,7 +32,7 @@ Der Browser öffnet automatisch `http://localhost:5000` mit dem Dashboard.
 
 ## 📊 Features
 
-### ✅ WebUI Dashboard
+### ✅ WebUI Dashboard (Monitoring)
 - **Live Map**: Echtzeit-Position des Bots auf Kanto-Karte
 - **Game State**: Location, Badges, Spielzeit, Koordinaten
 - **Pokemon Team**: Party mit Level und HP
@@ -41,10 +41,11 @@ Der Browser öffnet automatisch `http://localhost:5000` mit dem Dashboard.
 - **Q-Learning Stats**: States Explored, Q-Table Size, Updates
 - **Scoreboard**: Bestenliste mit Badge-Zeiten
 
-### ✅ Bot Konfiguration (direkt im WebUI)
-- **Badge Challenge**: Bot läuft bis alle 8 Badges erreicht sind
-- **Speed Run**: Bot versucht Elite Four zu besiegen
-- **Free Run**: Custom Anzahl Steps
+### ✅ Bot Training
+- **PyBoy-Fenster**: Sichtbares Spiel-Fenster zum Zuschauen
+- **Badge Challenge**: Bot trainiert bis alle 8 Badges erreicht sind
+- **Automatisches Training**: Q-Learning mit Epsilon-Greedy Policy
+- **Persistente Q-Table**: Lernt über mehrere Sessions hinweg
 
 ### ✅ Badge-Checkpoint System
 Jedes Badge wird als Meilenstein getrackt:
@@ -97,22 +98,27 @@ PokeRushAI/
 
 ## 🎯 Bedienung
 
-### Im WebUI Dashboard:
+### Start:
 
-1. **Run-Typ wählen**:
-   - Badge Challenge (empfohlen für Training)
-   - Speed Run (für vollständigen Durchlauf)
-   - Free Run (für Tests)
+```bash
+python launch.py
+```
 
-2. **Bot starten**: Button "▶ Start Bot" klicken
+### Was passiert:
 
-3. **Training beobachten**:
-   - Map zeigt aktuelle Position
-   - Training Metrics zeigen Fortschritt
-   - Q-Learning Stats zeigen Lernfortschritt
-   - Scoreboard zeigt beste Runs
+1. **PyBoy-Fenster öffnet sich**: Hier siehst du das Spiel live
+2. **WebUI öffnet im Browser**: `http://localhost:5000` für Monitoring
+3. **Bot trainiert automatisch**: Badge Challenge (max. 500.000 Steps)
 
-4. **Bot stoppen**: Button "⏹ Stop Bot" klicken
+### Während des Trainings:
+
+- **PyBoy-Fenster**: Zeigt das Spiel in Echtzeit
+- **WebUI Dashboard**: Zeigt Stats, Map-Position, Team und Scoreboard
+- **Terminal**: Zeigt Bot-Logs und Badge-Meldungen
+
+### Beenden:
+
+- Schließe das PyBoy-Fenster oder drücke `Ctrl+C` im Terminal
 
 ### Badge-Tracking:
 Der Bot gibt automatisch eine Meldung aus wenn ein Badge erreicht wird:
@@ -139,9 +145,10 @@ Das Q-Table wird in `data/q_table.json` gespeichert und wächst mit jedem Run.
 ## 🔧 Technische Details
 
 ### Emulator
-- **PyBoy**: Game Boy Emulator (headless mode)
+- **PyBoy**: Game Boy Emulator mit SDL2-Fenster
 - **ROM**: Pokémon Rot (pokered.gb)
 - **Memory Reading**: Direct RAM access für Game State
+- **Window**: Sichtbares Fenster für Live-Beobachtung
 
 ### WebUI
 - **Flask**: Backend API
@@ -173,8 +180,8 @@ Das Q-Table wird in `data/q_table.json` gespeichert und wächst mit jedem Run.
 - Dependencies installiert? (`pip install -r requirements.txt`)
 
 **WebUI lädt nicht?**
-- Port 5000 frei? Prüfe mit `netstat -an | findstr 5000`
-- Firewall blockiert? Flask erlauben
+- Port 5000 frei? Prüfe mit `lsof -i :5000` oder `netstat -tuln | grep 5000`
+- Browser öffnet nicht automatisch? Öffne manuell: `http://localhost:5000`
 
 **Bot lernt nicht?**
 - Q-Table vorhanden? (`data/q_table.json`)
@@ -207,10 +214,35 @@ Alle Settings in `core/config.py`:
 ## 🤝 Erweiterungen
 
 Das System ist modular aufgebaut:
-- Neue Editionen: `core/config.py` erweitern
-- Neue Rewards: `bot/rewards.py` anpassen
-- Neue Actions: `bot/rl_bot.py` erweitern
-- Neue Metriken: `web_ui/app.py` + `templates/index.html`
+- **Neue Rewards**: `bot/rewards.py` anpassen
+- **Neue Policies**: `bot/policy.py` erweitern
+- **Init State Training**: `python create_init_state.py` + `main.py --use-init-state`
+- **Neue Metriken**: `web_ui/app.py` + `templates/index.html`
+
+## 🔬 Erweiterte Nutzung
+
+### CLI mit main.py
+
+Für erweiterte Konfiguration nutze `main.py`:
+
+```bash
+# Bot mit Init State (schnelleres Training)
+python main.py bot --use-init-state --max-steps 100000
+
+# Nur WebUI starten
+python main.py webui --port 5000
+
+# Interaktiver Modus
+python main.py interactive
+```
+
+### Init State erstellen
+
+```bash
+python create_init_state.py
+```
+
+Spiele manuell durch das Intro bis Pallet Town, dann Enter drücken.
 
 ---
 
