@@ -82,7 +82,7 @@ PokeRushAI/
 │   │   └── index.html    ← Dashboard UI
 │   └── static/
 │       ├── styles.css    ← Red/White Theme
-│       ├── app_extended.js ← Frontend Logic
+│       ├── app.js       ← Frontend Logic
 │       └── kanto_map.svg
 ├── run_logging/          ← Run History & Scoreboard
 ├── scoreboard/           ← Scoreboard Management
@@ -159,9 +159,10 @@ Das Q-Table wird in `data/q_table.json` gespeichert und wächst mit jedem Run.
 ## 📚 Dokumentation
 
 - `docs/ARCHITECTURE.md` - System-Architektur
-- `docs/Q_LEARNING.md` - Q-Learning Details
 - `docs/USAGE.md` - Advanced Usage
-- `docs/TESTING.md` - Testing Guide
+- `docs/INIT_STATE_USAGE.md` - Init State Guide
+- `docs/ADVANCED_REWARDS.md` - Reward System
+- `docs/SESSION_STATS.md` - Session Statistics
 
 ---
 
