@@ -10,6 +10,7 @@ class GameState:
     location: str
     x: int
     y: int
+    map_id: int
     badges: int
     play_time_seconds: float
 

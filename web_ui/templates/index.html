@@ -3,52 +3,94 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PokéRushAI Dashboard</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+    <title>PokéRushAI - Live Stats Monitor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles_new.css') }}" />
   </head>
   <body>
     <header>
-      <h1>PokéRushAI Speedrun Dashboard</h1>
-      <p>Live emulator state, routing decisions, and leaderboard tracking.</p>
+      <h1>PokéRushAI - Live Stats Monitor</h1>
+      <p>🎮 Bot läuft im PyBoy-Fenster | 📊 Hier siehst du Live-Stats, Map, Team & Bestenliste</p>
     </header>
 
     <section class="controls">
-      <label for="edition-select">Edition</label>
-      <select id="edition-select">
-        {% for key, edition in editions.items() %}
-        <option value="{{ key }}">{{ edition.name }}</option>
-        {% endfor %}
-      </select>
+      <div id="status-indicator" class="status-indicator">
+        <span id="emulator-status">🎮 PyBoy: <span class="status-running">Läuft im Fenster</span></span>
+        <span id="bot-status">Bot: <span class="status-running">Training aktiv</span></span>
+      </div>
+      
+      <div class="info-box" style="flex: 1; margin-left: 20px;">
+        <strong>ℹ️ Monitoring Mode:</strong> Der Bot läuft im PyBoy-Fenster. Diese WebUI zeigt Live-Stats, Map, Team und Bestenliste.<br>
+        <strong>🎮 PyBoy-Fenster:</strong> Schau dir das Spiel dort an! Der Bot spielt automatisch.<br>
+        <strong>🏅 Badge Challenge:</strong> Bot läuft bis alle 8 Badges erreicht sind (max 500.000 steps).
+      </div>
     </section>
 
     <section class="layout">
+      <!-- Left Panel: Map + Activity -->
       <div class="map-panel">
-        <h2>World Map</h2>
+        <h2>🗺️ World Map</h2>
         <div class="map-wrapper">
           <img id="map-image" alt="Pokemon map" />
           <div id="player-marker"></div>
         </div>
         <div class="map-meta" id="map-meta"></div>
+        
+        <h2>📜 Recent Actions</h2>
+        <div class="log-panel" id="actions-panel">
+          <div class="log-placeholder">Waiting for bot activity...</div>
+        </div>
       </div>
 
-      <div class="state-panel">
-        <h2>Current Run State</h2>
-        <ul id="state-list"></ul>
+      <!-- Center Panel: Game State -->
+      <div class="stats-panel state-panel">
+        <h2>🎮 Game State</h2>
+        <ul id="state-list">
+          <li>Loading...</li>
+        </ul>
 
-        <h2>Scoreboard</h2>
+        <h2>👾 Party Pokemon</h2>
+        <div id="party-list">
+          <div class="party-placeholder">No party data...</div>
+        </div>
+
+        <h2>💰 Resources</h2>
+        <ul id="resources-list">
+          <li>Money: <span id="money-value">-</span></li>
+        </ul>
+      </div>
+
+      <!-- Right Panel: Training Stats -->
+      <div class="stats-panel">
+        <h2>📊 Training Metrics</h2>
+        <ul id="metrics-list">
+          <li>Episode <span id="episode-value">0</span></li>
+          <li>Total Steps <span id="steps-value">0</span></li>
+          <li>Total Reward <span id="reward-value">0.0</span></li>
+        </ul>
+
+        <h2>🧠 Q-Learning Stats</h2>
+        <ul id="qlearning-list">
+          <li>States Explored <span id="states-explored">0</span></li>
+          <li>Q-Table Size <span id="qtable-size">0</span></li>
+          <li>Total Updates <span id="total-updates">0</span></li>
+        </ul>
+
+        <h2>🏆 Scoreboard</h2>
         <table>
           <thead>
             <tr>
               <th>Run</th>
-              <th>Total Time (s)</th>
-              <th>Splits</th>
+              <th>Time (s)</th>
+              <th>Badges</th>
             </tr>
           </thead>
-          <tbody id="scoreboard-body"></tbody>
+          <tbody id="scoreboard-body">
+            <tr><td colspan="3">Loading...</td></tr>
+          </tbody>
         </table>
       </div>
     </section>
 
-    <script src="{{ url_for('static', filename='app.js') }}"></script>
+    <script src="{{ url_for('static', filename='app_extended.js') }}"></script>
   </body>
 </html>

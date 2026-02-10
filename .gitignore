@@ -1,2 +1,49 @@
 __pycache__/
 *.pyc
+
+# Backup files
+*.backup
+
+# ROM files  
+*.gb
+*.gbc
+roms/*.gb
+roms/*.gbc
+rom/
+
+# Generated data
+data/q_table.json
+data/q_table.pkl
+data/state.json
+data/session_stats/
+data/tensorboard/
+data/checkpoints/
+data/maps/
+data/saves/
+
+# Logs
+logs/
+*.log
+
+# Screenshots and images
+screen_*.png
+*.png
+
+# Temporary files
+temp_*.py
+check_*.py
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db

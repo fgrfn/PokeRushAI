@@ -1,1 +1,7 @@
 flask==3.0.0
+hnswlib>=0.8.0  # KNN-based screen exploration
+mediapy>=1.1.0  # Video recording
+pandas>=2.0.0    # Session statistics CSV export
+tensorboard>=2.15.0  # Training metrics visualization
+pillow>=10.0.0  # Map image generation
+matplotlib>=3.8.0  # Heatmap visualization

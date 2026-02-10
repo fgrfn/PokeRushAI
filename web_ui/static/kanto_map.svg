@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <!-- Kanto Region Placeholder Map -->
+  <rect width="400" height="400" fill="#8BC34A"/>
+  
+  <!-- Water -->
+  <rect x="0" y="0" width="100" height="400" fill="#2196F3"/>
+  <rect x="300" y="0" width="100" height="400" fill="#2196F3"/>
+  <rect x="100" y="300" width="200" height="100" fill="#2196F3"/>
+  
+  <!-- Cities -->
+  <g id="pallet-town">
+    <rect x="150" y="350" width="20" height="20" fill="#FF5722"/>
+    <text x="160" y="345" font-size="10" text-anchor="middle" fill="#000">Pallet</text>
+  </g>
+  
+  <g id="viridian-city">
+    <rect x="150" y="300" width="20" height="20" fill="#FF5722"/>
+    <text x="160" y="295" font-size="10" text-anchor="middle" fill="#000">Viridian</text>
+  </g>
+  
+  <g id="pewter-city">
+    <rect x="120" y="220" width="20" height="20" fill="#FF5722"/>
+    <text x="130" y="215" font-size="10" text-anchor="middle" fill="#000">Pewter</text>
+  </g>
+  
+  <g id="cerulean-city">
+    <rect x="200" y="180" width="20" height="20" fill="#FF5722"/>
+    <text x="210" y="175" font-size="10" text-anchor="middle" fill="#000">Cerulean</text>
+  </g>
+  
+  <g id="vermilion-city">
+    <rect x="200" y="260" width="20" height="20" fill="#FF5722"/>
+    <text x="210" y="255" font-size="10" text-anchor="middle" fill="#000">Vermilion</text>
+  </g>
+  
+  <g id="lavender-town">
+    <rect x="250" y="220" width="20" height="20" fill="#9C27B0"/>
+    <text x="260" y="215" font-size="10" text-anchor="middle" fill="#000">Lavender</text>
+  </g>
+  
+  <g id="celadon-city">
+    <rect x="150" y="220" width="20" height="20" fill="#FF5722"/>
+    <text x="160" y="215" font-size="10" text-anchor="middle" fill="#000">Celadon</text>
+  </g>
+  
+  <g id="saffron-city">
+    <rect x="200" y="220" width="20" height="20" fill="#FFC107"/>
+    <text x="210" y="215" font-size="10" text-anchor="middle" fill="#000">Saffron</text>
+  </g>
+  
+  <g id="fuchsia-city">
+    <rect x="180" y="300" width="20" height="20" fill="#E91E63"/>
+    <text x="190" y="295" font-size="10" text-anchor="middle" fill="#000">Fuchsia</text>
+  </g>
+  
+  <g id="cinnabar-island">
+    <rect x="120" y="360" width="20" height="20" fill="#FF5722"/>
+    <text x="130" y="355" font-size="10" text-anchor="middle" fill="#000">Cinnabar</text>
+  </g>
+  
+  <g id="indigo-plateau">
+    <rect x="120" y="30" width="25" height="25" fill="#673AB7"/>
+    <text x="132" y="25" font-size="10" text-anchor="middle" fill="#000">Victory</text>
+  </g>
+  
+  <!-- Routes (simplified) -->
+  <line x1="160" y1="350" x2="160" y2="320" stroke="#795548" stroke-width="4"/>
+  <line x1="130" y1="240" x2="160" y2="240" stroke="#795548" stroke-width="4"/>
+  <line x1="160" y1="240" x2="160" y2="300" stroke="#795548" stroke-width="4"/>
+  <line x1="170" y1="230" x2="200" y2="200" stroke="#795548" stroke-width="4"/>
+  <line x1="210" y1="200" x2="210" y2="260" stroke="#795548" stroke-width="4"/>
+  
+  <!-- Mountains -->
+  <polygon points="120,150 140,120 160,150" fill="#757575"/>
+  <polygon points="250,100 270,70 290,100" fill="#757575"/>
+  
+  <!-- Grid -->
+  <g opacity="0.1">
+    <line x1="0" y1="100" x2="400" y2="100" stroke="#000" stroke-width="1"/>
+    <line x1="0" y1="200" x2="400" y2="200" stroke="#000" stroke-width="1"/>
+    <line x1="0" y1="300" x2="400" y2="300" stroke="#000" stroke-width="1"/>
+    <line x1="100" y1="0" x2="100" y2="400" stroke="#000" stroke-width="1"/>
+    <line x1="200" y1="0" x2="200" y2="400" stroke="#000" stroke-width="1"/>
+    <line x1="300" y1="0" x2="300" y2="400" stroke="#000" stroke-width="1"/>
+  </g>
+  
+  <!-- Title -->
+  <text x="200" y="390" font-size="16" font-weight="bold" text-anchor="middle" fill="#000">Kanto Region</text>
+</svg>
